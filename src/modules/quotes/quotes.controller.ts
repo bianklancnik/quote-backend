@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateQuoteDTO } from './dto/create-quote.dto';
 import { UpdateQuoteDTO } from './dto/update-quote.dto';
-import { Quote } from './quote.entity';
+import { Quote } from '../../entities/quote.entity';
 import { QuotesService } from './quotes.service';
 
 @Controller('')
