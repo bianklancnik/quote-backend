@@ -32,7 +32,7 @@ export class QuotesController {
   }
 
   @Patch('myquote/:id')
-  updateTaskStatus(
+  updateQuote(
     @Param('id') id: string,
     @Body() updateQuoteDTO: UpdateQuoteDTO,
   ): Promise<Quote> {
