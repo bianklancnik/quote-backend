@@ -15,12 +15,18 @@ export class QuotesService {
     const found = await this.quotesRepository.findOne(id);
 
     if (!found) {
-      throw new NotFoundException();
+      throw new NotFoundException('Quote with ID ' + id + ' not found');
     }
     return found;
   }
 
   createQuote(createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
     return this.quotesRepository.createQuote(createQuoteDTO);
+  }
+
+  async deleteQuote(id: string): Promise<void> {
+    const result = await this.quotesRepository.delete(id);
+    if (result.affected === 0)
+      throw new NotFoundException('Quote with ID ' + id + ' not found');
   }
 }
