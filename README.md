@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="#" target="blank"><img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fquote&psig=AOvVaw3fuf7p375HKrs2Wh91GFxY&ust=1637153228895000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjjmJj1nPQCFQAAAAAdAAAAABAD" width="320" alt="Quote" /></a>
+  <a href="#" target="blank"><img src="https://media.istockphoto.com/photos/speech-bubble-on-blue-background-picture-id1009861190?b=1&k=20&m=1009861190&s=170667a&w=0&h=-gATf7bn0aGMv0Bfu7kh2oCOYV7YJBt0xJV72xLwwBw=" width="320" alt="Quote" /></a>
 </p>
 
 ## Description
