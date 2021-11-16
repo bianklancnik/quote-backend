@@ -35,18 +35,36 @@ export class QuotesService {
     id: string,
     updateQuoteDTO: UpdateQuoteDTO,
   ): Promise<Quote> {
-    const task = await this.getQuoteById(id);
+    const quote = await this.getQuoteById(id);
 
     const { title, desc } = updateQuoteDTO;
     if (typeof title !== 'undefined') {
-      task.title = title;
+      quote.title = title;
     }
     if (typeof desc !== 'undefined') {
-      task.desc = desc;
+      quote.desc = desc;
     }
 
-    await this.quotesRepository.save(task);
+    await this.quotesRepository.save(quote);
 
-    return task;
+    return quote;
+  }
+
+  async upvoteQuote(id: string): Promise<Quote> {
+    const quote = await this.getQuoteById(id);
+
+    quote.upvotes++;
+    await this.quotesRepository.save(quote);
+
+    return quote;
+  }
+
+  async downvoteQuote(id: string): Promise<Quote> {
+    const quote = await this.getQuoteById(id);
+
+    quote.downvotes++;
+    await this.quotesRepository.save(quote);
+
+    return quote;
   }
 }
