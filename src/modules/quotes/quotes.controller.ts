@@ -38,4 +38,14 @@ export class QuotesController {
   ): Promise<Quote> {
     return this.quotesService.updateQuote(id, updateQuoteDTO);
   }
+
+  @Patch('myquote/:id/upvote')
+  upvoteQuote(@Param('id') id: string): Promise<Quote> {
+    return this.quotesService.upvoteQuote(id);
+  }
+
+  @Patch('myquote/:id/downvote')
+  downvoteQuote(@Param('id') id: string): Promise<Quote> {
+    return this.quotesService.downvoteQuote(id);
+  }
 }
