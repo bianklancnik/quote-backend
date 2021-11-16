@@ -20,17 +20,7 @@ export class QuotesService {
     return found;
   }
 
-  async createQuote(createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
-    const { title, desc } = createQuoteDTO;
-
-    const quote = this.quotesRepository.create({
-      title,
-      desc,
-      upvotes: 0,
-      downvotes: 0,
-    });
-
-    await this.quotesRepository.save(quote);
-    return quote;
+  createQuote(createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
+    return this.quotesRepository.createQuote(createQuoteDTO);
   }
 }
