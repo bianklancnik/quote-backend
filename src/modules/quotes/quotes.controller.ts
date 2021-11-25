@@ -13,6 +13,8 @@ import { UpdateQuoteDTO } from './dto/update-quote.dto';
 import { Quote } from '../../entities/quote.entity';
 import { QuotesService } from './quotes.service';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../auth/get-user.decorator';
+import { User } from 'src/entities/user.entity';
 
 @Controller('')
 export class QuotesController {
@@ -25,8 +27,11 @@ export class QuotesController {
 
   @Post('myquote')
   @UseGuards(AuthGuard())
-  createQuote(@Body() createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
-    return this.quotesService.createQuote(createQuoteDTO);
+  createQuote(
+    @Body() createQuoteDTO: CreateQuoteDTO,
+    @GetUser() user: User,
+  ): Promise<Quote> {
+    return this.quotesService.createQuote(createQuoteDTO, user);
   }
 
   @Delete('myquote/:id')

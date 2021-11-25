@@ -4,6 +4,7 @@ import { CreateQuoteDTO } from './dto/create-quote.dto';
 import { UpdateQuoteDTO } from './dto/update-quote.dto';
 import { Quote } from '../../entities/quote.entity';
 import { QuotesRepository } from './quotes.repository';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class QuotesService {
@@ -21,8 +22,8 @@ export class QuotesService {
     return found;
   }
 
-  createQuote(createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
-    return this.quotesRepository.createQuote(createQuoteDTO);
+  createQuote(createQuoteDTO: CreateQuoteDTO, user: User): Promise<Quote> {
+    return this.quotesRepository.createQuote(createQuoteDTO, user);
   }
 
   async deleteQuote(id: string): Promise<void> {
