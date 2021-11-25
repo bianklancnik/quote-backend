@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Quote {
@@ -16,4 +18,8 @@ export class Quote {
 
   @Column()
   downvotes: number;
+
+  @ManyToOne((_type) => User, (user) => user.quotes, { eager: false })
+  @Exclude({ toPlainOnly: true })
+  user: User;
 }
