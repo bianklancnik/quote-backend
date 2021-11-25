@@ -6,11 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateQuoteDTO } from './dto/create-quote.dto';
 import { UpdateQuoteDTO } from './dto/update-quote.dto';
 import { Quote } from '../../entities/quote.entity';
 import { QuotesService } from './quotes.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('')
 export class QuotesController {
@@ -22,16 +24,19 @@ export class QuotesController {
   }
 
   @Post('myquote')
+  @UseGuards(AuthGuard())
   createQuote(@Body() createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
     return this.quotesService.createQuote(createQuoteDTO);
   }
 
   @Delete('myquote/:id')
+  @UseGuards(AuthGuard())
   deleteQuote(@Param('id') id: string): Promise<void> {
     return this.quotesService.deleteQuote(id);
   }
 
   @Patch('myquote/:id')
+  @UseGuards(AuthGuard())
   updateQuote(
     @Param('id') id: string,
     @Body() updateQuoteDTO: UpdateQuoteDTO,
@@ -40,11 +45,13 @@ export class QuotesController {
   }
 
   @Patch('myquote/:id/upvote')
+  @UseGuards(AuthGuard())
   upvoteQuote(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.upvoteQuote(id);
   }
 
   @Patch('myquote/:id/downvote')
+  @UseGuards(AuthGuard())
   downvoteQuote(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.downvoteQuote(id);
   }
