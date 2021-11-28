@@ -4,7 +4,7 @@
 
 ## Description
 
-Backend for quote application. Users can create quotes and view other users quotes. They can also upvote and downvote other users quotes.
+Backend application for users to create and publish quotes. Users can also view other users quotes and upvote/downvote them. Application also allows you to sign up if you don't have an account yet.
 
 ## Stay in touch
 
