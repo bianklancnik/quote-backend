@@ -32,7 +32,7 @@ export class AuthService {
       throw new UnauthorizedException('Please check your login credentials');
   }
 
-  userInformation(user: User) {
+  userInformation(user: User): { id: string; username: string } {
     const { id, username } = user;
     return { id, username };
   }

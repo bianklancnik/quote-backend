@@ -23,7 +23,7 @@ export class AuthController {
 
   @Post('me')
   @UseGuards(AuthGuard())
-  userInformation(@GetUser() user: User) {
+  userInformation(@GetUser() user: User): { id: string; username: string } {
     return this.authService.userInformation(user);
   }
 }
