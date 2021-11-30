@@ -5,6 +5,7 @@ import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -29,5 +30,10 @@ export class AuthService {
       return { accessToken };
     } else
       throw new UnauthorizedException('Please check your login credentials');
+  }
+
+  userInformation(user: User) {
+    const { id, username } = user;
+    return { id, username };
   }
 }
