@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { User } from 'src/entities/user.entity';
+import { UpdatePasswordDTO } from './dto/update-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,5 +36,12 @@ export class AuthService {
   userInformation(user: User): { id: string; username: string } {
     const { id, username } = user;
     return { id, username };
+  }
+
+  async updateUserPassword(
+    updatePasswordDTO: UpdatePasswordDTO,
+    user: User,
+  ): Promise<void> {
+    return this.usersRepository.updatePassword(updatePasswordDTO, user);
   }
 }
