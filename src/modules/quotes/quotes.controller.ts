@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from 'src/entities/user.entity';
 
-@Controller('')
+@Controller('myquote')
 export class QuotesController {
   constructor(private quotesService: QuotesService) {}
 
@@ -25,7 +25,7 @@ export class QuotesController {
     return this.quotesService.getQuoteById(id);
   }
 
-  @Post('myquote')
+  @Post('')
   @UseGuards(AuthGuard())
   createQuote(
     @Body() createQuoteDTO: CreateQuoteDTO,
@@ -34,13 +34,13 @@ export class QuotesController {
     return this.quotesService.createQuote(createQuoteDTO, user);
   }
 
-  @Delete('myquote/:id')
+  @Delete(':id')
   @UseGuards(AuthGuard())
   deleteQuote(@Param('id') id: string): Promise<void> {
     return this.quotesService.deleteQuote(id);
   }
 
-  @Patch('myquote/:id')
+  @Patch(':id')
   @UseGuards(AuthGuard())
   updateQuote(
     @Param('id') id: string,
@@ -49,13 +49,13 @@ export class QuotesController {
     return this.quotesService.updateQuote(id, updateQuoteDTO);
   }
 
-  @Patch('myquote/:id/upvote')
+  @Patch(':id/upvote')
   @UseGuards(AuthGuard())
   upvoteQuote(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.upvoteQuote(id);
   }
 
-  @Patch('myquote/:id/downvote')
+  @Patch(':id/downvote')
   @UseGuards(AuthGuard())
   downvoteQuote(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.downvoteQuote(id);
