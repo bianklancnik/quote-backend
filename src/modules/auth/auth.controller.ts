@@ -36,9 +36,4 @@ export class AuthController {
   ): Promise<void> {
     return this.authService.updateUserPassword(updatePasswordDTO, user);
   }
-
-  @Get('test')
-  test() {
-    console.log('neki');
-  }
 }
