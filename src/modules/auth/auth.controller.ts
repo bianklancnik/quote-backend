@@ -36,4 +36,9 @@ export class AuthController {
   ): Promise<void> {
     return this.authService.updateUserPassword(updatePasswordDTO, user);
   }
+
+  @Get('/list')
+  getUsersAndQuotesList(): Promise<User[]> {
+    return this.authService.getUsersAndQuotesList();
+  }
 }
