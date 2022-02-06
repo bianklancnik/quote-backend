@@ -45,4 +45,13 @@ export class UsersRepository extends Repository<User> {
       throw new InternalServerErrorException();
     }
   }
+
+  async getUsersAndQuotesList(): Promise<User[]> {
+    const users = await this.createQueryBuilder('user')
+      .select('user.username')
+      .innerJoinAndSelect('user.quotes', 'quotes')
+      .orderBy('quotes.upvotes', 'DESC')
+      .getMany();
+    return users;
+  }
 }
