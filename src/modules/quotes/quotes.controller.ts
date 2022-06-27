@@ -20,7 +20,7 @@ import { User } from 'src/entities/user.entity';
 export class QuotesController {
   constructor(private quotesService: QuotesService) {}
 
-  @Get('/:id')
+  @Get(':id')
   getQuoteById(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.getQuoteById(id);
   }

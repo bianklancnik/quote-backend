@@ -11,20 +11,30 @@ import { UpdatePasswordDTO } from './dto/update-password.dto';
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
   async createUser(authCredentialsDTO: AuthCredentialsDTO): Promise<void> {
-    const { username, password } = authCredentialsDTO;
+    const { email, firstName, lastName, password, confirmPassword } =
+      authCredentialsDTO;
+    //check if passwords match
+    if (password === confirmPassword) {
+      //hash
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(password, salt);
 
-    //hash
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
+      const user = this.create({
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+      });
 
-    const user = this.create({ username, password: hashedPassword });
-
-    try {
-      await this.save(user);
-    } catch (error) {
-      if (error.code === '23505')
-        throw new ConflictException('Username already exists');
-      else throw new InternalServerErrorException();
+      try {
+        await this.save(user);
+      } catch (error) {
+        if (error.code === '23505')
+          throw new ConflictException('Email is already registered');
+        else throw new InternalServerErrorException();
+      }
+    } else {
+      throw new InternalServerErrorException('Passwords do not match');
     }
   }
 
@@ -48,10 +58,28 @@ export class UsersRepository extends Repository<User> {
 
   async getUsersAndQuotesList(): Promise<User[]> {
     const users = await this.createQueryBuilder('user')
-      .select('user.username')
+      .select('user.firstName')
+      .addSelect('user.lastName')
       .innerJoinAndSelect('user.quotes', 'quotes')
       .orderBy('quotes.upvotes', 'DESC')
       .getMany();
     return users;
+  }
+
+  async getRandomQuote(): Promise<User> {
+    const userQuote = await this.createQueryBuilder('user')
+      .innerJoin('user.quotes', 'quotes')
+      .select([
+        'quotes.title',
+        'quotes.desc',
+        'quotes.upvotes',
+        'quotes.downvotes',
+        'user.firstName',
+        'user.lastName',
+      ])
+      .orderBy('RANDOM()')
+      .limit(1)
+      .getOne();
+    return userQuote;
   }
 }

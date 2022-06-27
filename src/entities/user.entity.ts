@@ -7,10 +7,16 @@ export class User {
   id: string;
 
   @Column({ unique: true })
-  username: string;
+  email: string;
 
   @Column()
   password: string;
+
+  @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
 
   @OneToMany((_type) => Quote, (quote) => quote.user, { eager: true })
   quotes: Quote[];
