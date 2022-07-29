@@ -8,9 +8,6 @@ export class Quote {
   id: string;
 
   @Column()
-  title: string;
-
-  @Column()
   desc: string;
 
   @Column()

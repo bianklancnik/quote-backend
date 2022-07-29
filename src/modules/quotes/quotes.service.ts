@@ -38,10 +38,7 @@ export class QuotesService {
   ): Promise<Quote> {
     const quote = await this.getQuoteById(id);
 
-    const { title, desc } = updateQuoteDTO;
-    if (typeof title !== 'undefined') {
-      quote.title = title;
-    }
+    const { desc } = updateQuoteDTO;
     if (typeof desc !== 'undefined') {
       quote.desc = desc;
     }

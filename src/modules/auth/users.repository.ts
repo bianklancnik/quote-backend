@@ -70,10 +70,10 @@ export class UsersRepository extends Repository<User> {
     const userQuote = await this.createQueryBuilder('user')
       .innerJoin('user.quotes', 'quotes')
       .select([
-        'quotes.title',
         'quotes.desc',
         'quotes.upvotes',
         'quotes.downvotes',
+        'quotes.id',
         'user.firstName',
         'user.lastName',
       ])
