@@ -9,10 +9,9 @@ export class QuotesRepository extends Repository<Quote> {
     createQuoteDTO: CreateQuoteDTO,
     user: User,
   ): Promise<Quote> {
-    const { title, desc } = createQuoteDTO;
+    const { desc } = createQuoteDTO;
 
     const quote = this.create({
-      title,
       desc,
       upvotes: 0,
       downvotes: 0,
