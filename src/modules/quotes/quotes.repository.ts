@@ -12,10 +12,10 @@ export class QuotesRepository extends Repository<Quote> {
     const { desc } = createQuoteDTO;
 
     const quote = this.create({
+      user,
       desc,
       upvotes: 0,
       downvotes: 0,
-      user,
     });
 
     await this.save(quote);

@@ -60,6 +60,7 @@ export class UsersRepository extends Repository<User> {
     const users = await this.createQueryBuilder('user')
       .select('user.firstName')
       .addSelect('user.lastName')
+      .addSelect('user.id')
       .innerJoinAndSelect('user.quotes', 'quotes')
       .orderBy('quotes.upvotes', 'DESC')
       .getMany();
