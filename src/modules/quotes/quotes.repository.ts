@@ -14,11 +14,24 @@ export class QuotesRepository extends Repository<Quote> {
     const quote = this.create({
       user,
       desc,
-      upvotes: 0,
-      downvotes: 0,
+      votes: [],
     });
 
     await this.save(quote);
+    return quote;
+  }
+
+  async getList(): Promise<Quote[]> {
+    const quote = await this.createQueryBuilder('quote')
+      .select('quote.id')
+      .addSelect('quote.desc')
+      .addSelect('user.id')
+      .addSelect('user.firstName')
+      .addSelect('user.lastName')
+      .addSelect('vote.vote')
+      .innerJoin('quote.user', 'user')
+      .leftJoin('quote.votes', 'vote')
+      .getMany();
     return quote;
   }
 }
