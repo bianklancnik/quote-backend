@@ -20,6 +20,11 @@ import { User } from 'src/entities/user.entity';
 export class QuotesController {
   constructor(private quotesService: QuotesService) {}
 
+  @Get('list')
+  getUsersAndQuotesList(): Promise<Quote[]> {
+    return this.quotesService.getUsersAndQuotesList();
+  }
+
   @Get(':id')
   getQuoteById(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.getQuoteById(id);
@@ -47,17 +52,5 @@ export class QuotesController {
     @Body() updateQuoteDTO: UpdateQuoteDTO,
   ): Promise<Quote> {
     return this.quotesService.updateQuote(id, updateQuoteDTO);
-  }
-
-  @Patch(':id/upvote')
-  @UseGuards(AuthGuard())
-  upvoteQuote(@Param('id') id: string): Promise<Quote> {
-    return this.quotesService.upvoteQuote(id);
-  }
-
-  @Patch(':id/downvote')
-  @UseGuards(AuthGuard())
-  downvoteQuote(@Param('id') id: string): Promise<Quote> {
-    return this.quotesService.downvoteQuote(id);
   }
 }

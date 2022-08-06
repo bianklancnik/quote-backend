@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { QuotesModule } from './modules/quotes/quotes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
+import { VotesModule } from './modules/votes/votes.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
       synchronize: true,
     }),
     AuthModule,
+    VotesModule,
   ],
 })
 export class AppModule {}

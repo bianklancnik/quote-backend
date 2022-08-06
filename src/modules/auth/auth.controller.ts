@@ -37,11 +37,6 @@ export class AuthController {
     return this.authService.updateUserPassword(updatePasswordDTO, user);
   }
 
-  @Get('list')
-  getUsersAndQuotesList(): Promise<User[]> {
-    return this.authService.getUsersAndQuotesList();
-  }
-
   @Get('random-quote')
   getRandomQuote(): Promise<User> {
     return this.authService.getRandomQuote();

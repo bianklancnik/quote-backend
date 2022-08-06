@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entities/user.entity';
+import { Quote } from '../../entities/quote.entity';
 import { CreateQuoteDTO } from './dto/create-quote.dto';
 import { UpdateQuoteDTO } from './dto/update-quote.dto';
-import { Quote } from '../../entities/quote.entity';
 import { QuotesRepository } from './quotes.repository';
-import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class QuotesService {
@@ -20,6 +20,10 @@ export class QuotesService {
       throw new NotFoundException('Quote with ID ' + id + ' not found');
     }
     return found;
+  }
+
+  async getUsersAndQuotesList(): Promise<Quote[]> {
+    return this.quotesRepository.getList();
   }
 
   createQuote(createQuoteDTO: CreateQuoteDTO, user: User): Promise<Quote> {
@@ -43,24 +47,6 @@ export class QuotesService {
       quote.desc = desc;
     }
 
-    await this.quotesRepository.save(quote);
-
-    return quote;
-  }
-
-  async upvoteQuote(id: string): Promise<Quote> {
-    const quote = await this.getQuoteById(id);
-
-    quote.upvotes++;
-    await this.quotesRepository.save(quote);
-
-    return quote;
-  }
-
-  async downvoteQuote(id: string): Promise<Quote> {
-    const quote = await this.getQuoteById(id);
-
-    quote.downvotes++;
     await this.quotesRepository.save(quote);
 
     return quote;

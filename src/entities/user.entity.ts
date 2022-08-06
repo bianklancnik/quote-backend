@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Quote } from './quote.entity';
+import { Vote } from './vote.entity';
 
 @Entity()
 export class User {
@@ -18,6 +19,9 @@ export class User {
   @Column()
   lastName: string;
 
-  @OneToMany((_type) => Quote, (quote) => quote.user, { eager: true })
+  @OneToMany(() => Quote, (quote) => quote.user, { eager: true })
   quotes: Quote[];
+
+  @OneToMany(() => Vote, (vote) => vote.user, { eager: true })
+  votes: Vote[];
 }

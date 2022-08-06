@@ -56,28 +56,10 @@ export class UsersRepository extends Repository<User> {
     }
   }
 
-  async getUsersAndQuotesList(): Promise<User[]> {
-    const users = await this.createQueryBuilder('user')
-      .select('user.firstName')
-      .addSelect('user.lastName')
-      .addSelect('user.id')
-      .innerJoinAndSelect('user.quotes', 'quotes')
-      .orderBy('quotes.upvotes', 'DESC')
-      .getMany();
-    return users;
-  }
-
   async getRandomQuote(): Promise<User> {
     const userQuote = await this.createQueryBuilder('user')
       .innerJoin('user.quotes', 'quotes')
-      .select([
-        'quotes.desc',
-        'quotes.upvotes',
-        'quotes.downvotes',
-        'quotes.id',
-        'user.firstName',
-        'user.lastName',
-      ])
+      .select(['quotes.desc', 'quotes.id', 'user.firstName', 'user.lastName'])
       .orderBy('RANDOM()')
       .limit(1)
       .getOne();

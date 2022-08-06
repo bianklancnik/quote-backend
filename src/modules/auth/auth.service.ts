@@ -45,11 +45,6 @@ export class AuthService {
     return this.usersRepository.updatePassword(updatePasswordDTO, user);
   }
 
-  async getUsersAndQuotesList(): Promise<User[]> {
-    const list = await this.usersRepository.getUsersAndQuotesList();
-    return list;
-  }
-
   getRandomQuote(): Promise<User> {
     return this.usersRepository.getRandomQuote();
   }
