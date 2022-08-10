@@ -21,11 +21,13 @@ export class VotesService {
     return this.votesRepository.upvoteQuote(quote, user);
   }
 
-  async downvoteQuote(id: string, user: User): Promise<Vote> {
+  async downvoteQuote(id: string, user: User): Promise<void> {
     const quote = await this.quotesRepository.findOne(id);
 
     if (!quote) throw new NotFoundException('Quote not found');
 
-    return this.votesRepository.downvoteQuote(quote, user);
+    const currentVote = await this.votesRepository.findOne({ user, quote });
+    if (currentVote) await this.votesRepository.delete(currentVote);
+    else throw new NotFoundException('Vote with ID ' + id + ' not found');
   }
 }

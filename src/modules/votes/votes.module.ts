@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/modules/auth/auth.module';
-import { UsersRepository } from 'src/modules/auth/users.repository';
+import { UsersRepository } from 'src/modules/user/user/users.repository';
 import { QuotesModule } from 'src/modules/quotes/quotes.module';
 import { QuotesRepository } from 'src/modules/quotes/quotes.repository';
 import { VotesController } from './votes.controller';

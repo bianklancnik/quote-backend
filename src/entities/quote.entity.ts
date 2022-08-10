@@ -2,7 +2,6 @@ import { Exclude } from 'class-transformer';
 import {
   Column,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -18,11 +17,16 @@ export class Quote {
   @Column()
   desc: string;
 
-  @ManyToOne(() => User, (user) => user.quotes, { eager: false })
+  @ManyToOne(() => User, (user) => user.quotes, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   @Exclude({ toPlainOnly: true })
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
-  @OneToMany(() => Vote, (vote) => vote.quote, { eager: true })
+  @OneToMany(() => Vote, (vote) => vote.quote, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   votes: Vote[];
 }

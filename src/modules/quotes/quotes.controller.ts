@@ -20,11 +20,6 @@ import { User } from 'src/entities/user.entity';
 export class QuotesController {
   constructor(private quotesService: QuotesService) {}
 
-  @Get('list')
-  getUsersAndQuotesList(): Promise<Quote[]> {
-    return this.quotesService.getUsersAndQuotesList();
-  }
-
   @Get(':id')
   getQuoteById(@Param('id') id: string): Promise<Quote> {
     return this.quotesService.getQuoteById(id);

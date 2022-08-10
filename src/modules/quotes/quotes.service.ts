@@ -22,10 +22,6 @@ export class QuotesService {
     return found;
   }
 
-  async getUsersAndQuotesList(): Promise<Quote[]> {
-    return this.quotesRepository.getList();
-  }
-
   createQuote(createQuoteDTO: CreateQuoteDTO, user: User): Promise<Quote> {
     return this.quotesRepository.createQuote(createQuoteDTO, user);
   }

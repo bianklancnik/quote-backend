@@ -1,4 +1,4 @@
-import { Controller, Param, Patch, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/entities/user.entity';
 import { Vote } from 'src/entities/vote.entity';
@@ -9,15 +9,15 @@ import { VotesService } from './votes.service';
 export class VotesController {
   constructor(private votesService: VotesService) {}
 
-  @Patch(':id/upvote')
+  @Post(':id/upvote')
   @UseGuards(AuthGuard())
   upvoteQuote(@Param('id') id: string, @GetUser() user: User): Promise<Vote> {
     return this.votesService.upvoteQuote(id, user);
   }
 
-  @Patch(':id/downvote')
+  @Delete(':id/downvote')
   @UseGuards(AuthGuard())
-  downvoteQuote(@Param('id') id: string, @GetUser() user: User): Promise<Vote> {
+  downvoteQuote(@Param('id') id: string, @GetUser() user: User): Promise<void> {
     return this.votesService.downvoteQuote(id, user);
   }
 }
