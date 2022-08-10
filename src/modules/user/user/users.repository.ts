@@ -4,9 +4,9 @@ import {
 } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
 import { EntityRepository, Repository } from 'typeorm';
-import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
+import { AuthCredentialsDTO } from '../../auth/dto/auth-credentials.dto';
 import * as bcrypt from 'bcrypt';
-import { UpdatePasswordDTO } from './dto/update-password.dto';
+import { UpdatePasswordDTO } from '../../auth/dto/update-password.dto';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
@@ -54,15 +54,5 @@ export class UsersRepository extends Repository<User> {
     } catch (error) {
       throw new InternalServerErrorException();
     }
-  }
-
-  async getRandomQuote(): Promise<User> {
-    const userQuote = await this.createQueryBuilder('user')
-      .innerJoin('user.quotes', 'quotes')
-      .select(['quotes.desc', 'quotes.id', 'user.firstName', 'user.lastName'])
-      .orderBy('RANDOM()')
-      .limit(1)
-      .getOne();
-    return userQuote;
   }
 }

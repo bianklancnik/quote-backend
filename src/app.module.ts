@@ -3,10 +3,14 @@ import { QuotesModule } from './modules/quotes/quotes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { VotesModule } from './modules/votes/votes.module';
+import { UserModule } from './modules/user/user/user.module';
 
 @Module({
   imports: [
     QuotesModule,
+    AuthModule,
+    VotesModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -17,8 +21,6 @@ import { VotesModule } from './modules/votes/votes.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    AuthModule,
-    VotesModule,
   ],
 })
 export class AppModule {}

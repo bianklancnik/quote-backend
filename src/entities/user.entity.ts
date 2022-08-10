@@ -19,9 +19,15 @@ export class User {
   @Column()
   lastName: string;
 
-  @OneToMany(() => Quote, (quote) => quote.user, { eager: true })
+  @OneToMany(() => Quote, (quote) => quote.user, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   quotes: Quote[];
 
-  @OneToMany(() => Vote, (vote) => vote.user, { eager: true })
+  @OneToMany(() => Vote, (vote) => vote.user, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   votes: Vote[];
 }

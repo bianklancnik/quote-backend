@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
-import { UsersRepository } from './users.repository';
+import { UsersRepository } from '../user/user/users.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
@@ -43,9 +43,5 @@ export class AuthService {
     user: User,
   ): Promise<void> {
     return this.usersRepository.updatePassword(updatePasswordDTO, user);
-  }
-
-  getRandomQuote(): Promise<User> {
-    return this.usersRepository.getRandomQuote();
   }
 }
