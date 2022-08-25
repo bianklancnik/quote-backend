@@ -9,15 +9,15 @@ import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 
 @Module({
   imports: [
-    QuotesModule,
-    AuthModule,
-    VotesModule,
-    UserModule,
     ConfigModule.forRoot({
       envFilePath: 'src/common/envs/.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+    QuotesModule,
+    AuthModule,
+    VotesModule,
+    UserModule,
   ],
 })
 export class AppModule {}
