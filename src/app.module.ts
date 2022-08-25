@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { QuotesModule } from './modules/quotes/quotes.module';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
-import { VotesModule } from './modules/votes/votes.module';
+import { QuotesModule } from './modules/quotes/quotes.module';
 import { UserModule } from './modules/user/user/user.module';
+import { VotesModule } from './modules/votes/votes.module';
+import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 
 @Module({
   imports: [
@@ -11,16 +13,11 @@ import { UserModule } from './modules/user/user/user.module';
     AuthModule,
     VotesModule,
     UserModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Pr3s3nt-90',
-      database: 'quotes',
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      envFilePath: 'src/common/envs/.env',
+      isGlobal: true,
     }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
   ],
 })
 export class AppModule {}
