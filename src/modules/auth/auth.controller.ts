@@ -1,10 +1,6 @@
-import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/entities/user.entity';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
-import { UpdatePasswordDTO } from './dto/update-password.dto';
-import { GetUser } from './get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -20,20 +16,5 @@ export class AuthController {
     @Body() authCredentialsDTO: AuthCredentialsDTO,
   ): Promise<{ accessToken: string }> {
     return this.authService.signIn(authCredentialsDTO);
-  }
-
-  @Get('me')
-  @UseGuards(AuthGuard())
-  userInformation(@GetUser() user: User): User {
-    return this.authService.userInformation(user);
-  }
-
-  @Patch('me/update-password')
-  @UseGuards(AuthGuard())
-  updateUserPassword(
-    @Body() updatePasswordDTO: UpdatePasswordDTO,
-    @GetUser() user: User,
-  ): Promise<void> {
-    return this.authService.updateUserPassword(updatePasswordDTO, user);
   }
 }

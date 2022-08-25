@@ -47,4 +47,28 @@ export class QuotesService {
 
     return quote;
   }
+
+  async getRandomQuote(): Promise<Quote> {
+    return this.quotesRepository.getRandomQuote();
+  }
+
+  async getMostLiked(limit?: number): Promise<Quote[]> {
+    return this.quotesRepository.getMostLiked(limit);
+  }
+
+  async getMostRecent(limit?: number): Promise<Quote[]> {
+    return this.quotesRepository.getMostRecent(limit);
+  }
+
+  async getUserMostLiked(user: User, limit?: number): Promise<Quote[]> {
+    return this.quotesRepository.getUserMostLiked(user, limit);
+  }
+
+  async getUserMostRecent(user: User, limit?: number): Promise<Quote[]> {
+    return this.quotesRepository.getUserMostRecent(user, limit);
+  }
+
+  async getQuotesLikedByUser(user: User, limit?: number): Promise<Quote[]> {
+    return this.quotesRepository.getQuotesLikedByUser(user, limit);
+  }
 }
