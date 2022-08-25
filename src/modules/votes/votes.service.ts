@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Vote } from 'src/entities/vote.entity';
@@ -14,10 +18,13 @@ export class VotesService {
   ) {}
 
   async upvoteQuote(id: string, user: User): Promise<Vote> {
+    user.quotes.map((quote) => {
+      if (quote.id === id)
+        throw new ConflictException('You can not upvote your own quote!');
+    });
     const quote = await this.quotesRepository.findOne(id);
 
     if (!quote) throw new NotFoundException('Quote not found');
-
     return this.votesRepository.upvoteQuote(quote, user);
   }
 

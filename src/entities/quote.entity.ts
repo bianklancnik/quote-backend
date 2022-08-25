@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -17,11 +16,13 @@ export class Quote {
   @Column()
   desc: string;
 
+  @Column()
+  createdAt: string;
+
   @ManyToOne(() => User, (user) => user.quotes, {
     eager: false,
     onDelete: 'CASCADE',
   })
-  @Exclude({ toPlainOnly: true })
   user: User;
 
   @OneToMany(() => Vote, (vote) => vote.quote, {

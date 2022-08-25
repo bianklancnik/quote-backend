@@ -1,12 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
-import { UsersRepository } from '../user/user/users.repository';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+import { UsersRepository } from '../user/user/users.repository';
+import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
-import { User } from 'src/entities/user.entity';
-import { UpdatePasswordDTO } from './dto/update-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,16 +30,5 @@ export class AuthService {
       return { accessToken, id };
     } else
       throw new UnauthorizedException('Please check your login credentials');
-  }
-
-  userInformation(user: User): User {
-    return user;
-  }
-
-  async updateUserPassword(
-    updatePasswordDTO: UpdatePasswordDTO,
-    user: User,
-  ): Promise<void> {
-    return this.usersRepository.updatePassword(updatePasswordDTO, user);
   }
 }
